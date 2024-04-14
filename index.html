@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Hello</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://unpkg.com/htmx.org@1.9.2"></script>
+	</head>
+	<body>
+		<h1>Hello, world!</h1>
+
+		<div class="row mt-4 g-4 mx-4">
+			<div class="col-8">
+				<h2>Film list</h2>
+
+				<ul class="list-group" id="film-list">
+					{{ range .Films }}
+						{{ block "film-list-element" . }}
+							<li class="list-group-item">{{ .Title }}, directed by {{ .Director }}</li>
+						{{ end }}
+					{{ end }}
+				</ul>
+			</div>
+
+			<div class="col-4">
+				<h2>Add a film</h2>
+
+				<form
+					hx-post="/add-film"
+					hx-target="#film-list"
+					hx-swap="beforeend"
+					hx-indicator="#spinner"
+					>
+					<div class="mb-2">
+						<label for="title" class="form-label">Title</label>
+						<input type="text" class="form-control" id="title" name="title">
+					</div>
+
+					<div class="mb-2">
+						<label for="director" class="form-label">Director</label>
+						<input type="text" class="form-control" id="director" name="director">
+					</div>
+
+					<button type="submit" class="btn btn-primary">
+						<span class="spinner-border spinner-border-sm htmx-indicator" role="status" id="spinner" aria-hidden="true"></span>
+						Add film
+					</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
