@@ -48,8 +48,8 @@ func main() {
 		tmpl.ExecuteTemplate(w, "film-list-element", film)
 	}
 
-	http.HandleFunc("/hello", helloHandler)
-	http.HandleFunc("/add-film", addFilmHandler)
+	http.HandleFunc("/films", helloHandler)
+	http.HandleFunc("POST /films", addFilmHandler)
 
 	// Set the port to align with the exposed port in the dev container
 	port := 8000
